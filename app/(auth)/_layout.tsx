@@ -9,13 +9,14 @@ const AuthLayout = () => {
         name="login"
         options={{
             headerShown:false,
-            headerTitle: "Create Account",
+            headerTitle: "Giriş Yap",
           }}
       ></Stack.Screen>
       <Stack.Screen
         name="register"
         options={{
           headerTitle: "Create Account",
+          headerShown:false,
         }}
       ></Stack.Screen>
     </Stack>
@@ -24,4 +25,4 @@ const AuthLayout = () => {
 
 export default AuthLayout;
 
-const styles = StyleSheet.create({});
+

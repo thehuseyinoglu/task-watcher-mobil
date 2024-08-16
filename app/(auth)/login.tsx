@@ -3,9 +3,9 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -18,6 +18,7 @@ import Input from "@/components/shared/Input";
 import PasswordInput from "@/components/shared/PasswordInput";
 import CustomButton from "@/components/shared/CustomButton";
 import { ThemedText } from "@/components/ThemedText";
+import { Link } from "expo-router";
 
 interface FormValues {
   email: string;
@@ -25,9 +26,10 @@ interface FormValues {
 }
 
 const Login = () => {
+
   const schema = yup.object().shape({
-    email: yup.string().required("Bu alanı doldurmak zorunludur"),
-    password: yup.string().required("bu alanı doldurmak zorunludur"),
+    email: yup.string().required("Bu alanı doldurmak zorunludur").email("Geçerli bir e-posta giriniz"),
+    password: yup.string().required("Bu alanı doldurmak zorunludur"),
   });
 
   const {
@@ -101,13 +103,15 @@ const Login = () => {
 
           <CustomButton title="Giriş Yap" onPress={handleSubmit(onSubmit)} />
 
-          <TouchableOpacity onPress={() => console.log("object")}>
-            <ThemedText
-              style={{ fontSize: 14, color: "#622EA0", textAlign: "center" }}
-            >
-              Hesap oluştur
-            </ThemedText>
-          </TouchableOpacity>
+          <Link href="/register" asChild>
+            <Pressable>
+              <ThemedText
+                style={{ fontSize: 14, color: "#622EA0", textAlign: "center" }}
+              >
+                Hesap oluştur
+              </ThemedText>
+            </Pressable>
+          </Link>
         </View>
       </ImageBackground>
     </KeyboardAvoidingView>

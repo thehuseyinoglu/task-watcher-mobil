@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
     justifyContent: "center",
+    
     position: "relative",
     gap: 4,
     backgroundColor: "transparent",
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
   eye: {
     position: "absolute",
     right: 12,
+    top:"50%"
   },
   input: {
     fontSize: 16,

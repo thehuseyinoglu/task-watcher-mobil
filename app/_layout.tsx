@@ -11,7 +11,8 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { SafeAreaView } from "react-native";
-import React from 'react'
+import React from "react";
+import axios from "axios";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -36,6 +37,7 @@ const InitialLayout = () => {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const router = useRouter();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -50,14 +52,38 @@ export default function RootLayout() {
     return null;
   }
 
+  const logout = () => {
+    router.replace("/login");
+  };
+
+  // const initAxios = () => {
+  //   const responseInterceptor = axios.interceptors.response.use(
+  //     (response) => {
+  //       if (response.data.status === 401) {
+  //         logout();
+  //       }
+  //       return response;
+  //     },
+  //     (error) => {
+  //       if (error.response && error.response.status === 401) {
+  //         logout();
+  //       }
+  //       return Promise.reject(error);
+  //     }
+  //   );
+  //   return () => {
+  //     axios.interceptors.response.eject(responseInterceptor);
+  //   };
+  // };
+  // useEffect(() => {
+  //   initAxios();
+  // }, []);
+
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <SafeAreaView style={{flex:1}}>
-
-      <InitialLayout />
+      <SafeAreaView style={{ flex: 1 }}>
+        <InitialLayout />
       </SafeAreaView>
     </ThemeProvider>
   );
 }
-
-
