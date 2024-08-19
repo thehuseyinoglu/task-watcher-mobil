@@ -1,4 +1,5 @@
 import {
+  Button,
   Image,
   ImageBackground,
   KeyboardAvoidingView,
@@ -9,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,6 +20,9 @@ import PasswordInput from "@/components/shared/PasswordInput";
 import CustomButton from "@/components/shared/CustomButton";
 import { ThemedText } from "@/components/ThemedText";
 import { Link } from "expo-router";
+import Toast from "react-native-toast-message";
+import { authService } from "@/services/auth/authService";
+import { helperServices } from "@/utils/helper-service";
 
 interface FormValues {
   email: string;
@@ -26,10 +30,20 @@ interface FormValues {
 }
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
 
   const schema = yup.object().shape({
-    email: yup.string().required("Bu alanı doldurmak zorunludur").email("Geçerli bir e-posta giriniz"),
-    password: yup.string().required("Bu alanı doldurmak zorunludur"),
+    email: yup
+      .string()
+      .required("Bu alanı doldurmak zorunludur")
+      .email("Geçerli bir e-posta giriniz")
+      .matches(/^(?![\s-])/, "Baştan boşluk bırakmayınız")
+      .matches(/\S+$/, "Sondan boşluk bırakmayınız"),
+    password: yup
+      .string()
+      .required("Bu alanı doldurmak zorunludur")
+      .matches(/^(?![\s-])/, "Baştan boşluk bırakmayınız")
+      .matches(/\S+$/, "Sondan boşluk bırakmayınız"),
   });
 
   const {
@@ -41,8 +55,30 @@ const Login = () => {
     resolver: yupResolver(schema) as any,
   });
 
-  const onSubmit = (value: FormValues) => {
-    console.log(value);
+  const onSubmit = async (value: FormValues) => {
+    try {
+      await login(value);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const login = async (value: FormValues) => {
+    setLoading(true);
+    const response = await authService.login(value);
+    if (response) {
+      helperServices.checkApiResponse(response, () => {
+        console.log("response.data", response.data);
+
+        Toast.show({
+          type: "success",
+          text1: "Başarılı",
+          text2: "Giriş yapılıyor",
+        });
+      });
+    }
   };
 
   return (
@@ -101,7 +137,11 @@ const Login = () => {
             </TouchableOpacity>
           </View>
 
-          <CustomButton title="Giriş Yap" onPress={handleSubmit(onSubmit)} />
+          <CustomButton
+            loading={loading}
+            title="Giriş Yap"
+            onPress={handleSubmit(onSubmit)}
+          />
 
           <Link href="/register" asChild>
             <Pressable>

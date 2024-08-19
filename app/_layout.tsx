@@ -10,9 +10,11 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, Text } from "react-native";
 import React from "react";
 import axios from "axios";
+
+import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -45,6 +47,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+   
     }
   }, [loaded]);
 
@@ -78,11 +81,38 @@ export default function RootLayout() {
   // useEffect(() => {
   //   initAxios();
   // }, []);
+  const toastConfig = {
+    success: (props: any) => (
+      <BaseToast
+        {...props}
+        style={{ borderLeftColor: "purple" }}
+        contentContainerStyle={{ paddingHorizontal: 15 }}
+        text1Style={{
+          fontSize: 15,
+          fontWeight: "400",
+        }}
+      />
+    ),
+
+    error: (props: any) => (
+      <ErrorToast
+        style={{ borderLeftColor: "red" }}
+        {...props}
+        text1Style={{
+          fontSize: 17,
+        }}
+        text2Style={{
+          fontSize: 15,
+        }}
+      />
+    ),
+  };
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SafeAreaView style={{ flex: 1 }}>
         <InitialLayout />
+        <Toast config={toastConfig} />
       </SafeAreaView>
     </ThemeProvider>
   );
