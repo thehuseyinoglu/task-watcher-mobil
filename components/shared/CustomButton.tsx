@@ -28,7 +28,7 @@ export default function CustomButton({
       style={[styles.button, { backgroundColor: bgColor ?? "#622EA0" }]}
     >
       {loading ? (
-        <ActivityIndicator size="large" color="#fff" />
+        <ActivityIndicator size="small" color="#fff" />
       ) : (
         <Text style={[styles.title, { color: textColor ?? "white" }]}>
           {title}

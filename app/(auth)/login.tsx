@@ -19,10 +19,11 @@ import Input from "@/components/shared/Input";
 import PasswordInput from "@/components/shared/PasswordInput";
 import CustomButton from "@/components/shared/CustomButton";
 import { ThemedText } from "@/components/ThemedText";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 import { authService } from "@/services/auth/authService";
 import { helperServices } from "@/utils/helper-service";
+import * as SecureStore from "expo-secure-store";
 
 interface FormValues {
   email: string;
@@ -31,6 +32,16 @@ interface FormValues {
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  async function saveToken(token: string) {
+    await SecureStore.setItemAsync("token", token);
+  }
+
+  async function getToken() {
+    return await SecureStore.getItemAsync("token");
+  }
 
   const schema = yup.object().shape({
     email: yup
@@ -59,7 +70,7 @@ const Login = () => {
     try {
       await login(value);
     } catch (error) {
-      console.log(error);
+      console.log('login',error);
     } finally {
       setLoading(false);
     }
@@ -70,16 +81,18 @@ const Login = () => {
     const response = await authService.login(value);
     if (response) {
       helperServices.checkApiResponse(response, () => {
-        console.log("response.data", response.data);
-
+        saveToken(response.data.token);
         Toast.show({
           type: "success",
           text1: "Başarılı",
           text2: "Giriş yapılıyor",
         });
+        router.replace("/");
       });
     }
   };
+
+
 
   return (
     <KeyboardAvoidingView
