@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 
 import { Ionicons } from "@expo/vector-icons";
-import { ThemedView } from "../ThemedView";
+import { ThemedView } from "./ThemedView";
 
 interface Props {
   title: string;

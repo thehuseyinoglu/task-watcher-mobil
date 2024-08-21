@@ -8,12 +8,13 @@ import { Slot, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { SafeAreaView, Text } from "react-native";
 import React from "react";
 import axios from "axios";
-
+import { store } from "../store/store";
+import { Provider } from "react-redux";
+import * as SecureStore from "expo-secure-store";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -22,7 +23,12 @@ SplashScreen.preventAutoHideAsync();
 const InitialLayout = () => {
   const segments = useSegments();
   const router = useRouter();
-  const isSignedIn = false;
+
+  async function getToken() {
+    return  SecureStore.getItem("token");
+  }
+
+  const isSignedIn =   SecureStore.getItem("token") ? true: false;
 
   useEffect(() => {
     const inTabsGroup = segments[0] === "(tabs)";
@@ -47,7 +53,6 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-   
     }
   }, [loaded]);
 
@@ -109,11 +114,13 @@ export default function RootLayout() {
   };
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <InitialLayout />
-        <Toast config={toastConfig} />
-      </SafeAreaView>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <InitialLayout />
+          <Toast config={toastConfig} />
+        </SafeAreaView>
+      </ThemeProvider>
+    </Provider>
   );
 }

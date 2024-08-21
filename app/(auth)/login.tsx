@@ -14,16 +14,18 @@ import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ThemedView } from "@/components/ThemedView";
+import { ThemedView } from "@/components/shared/ThemedView";
 import Input from "@/components/shared/Input";
 import PasswordInput from "@/components/shared/PasswordInput";
 import CustomButton from "@/components/shared/CustomButton";
-import { ThemedText } from "@/components/ThemedText";
+import { ThemedText } from "@/components/shared/ThemedText";
 import { Link, useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 import { authService } from "@/services/auth/authService";
 import { helperServices } from "@/utils/helper-service";
 import * as SecureStore from "expo-secure-store";
+import { useDispatch } from "react-redux";
+import { setToken } from "@/store/auth/authSlice";
 
 interface FormValues {
   email: string;
@@ -31,6 +33,8 @@ interface FormValues {
 }
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -39,9 +43,8 @@ const Login = () => {
     await SecureStore.setItemAsync("token", token);
   }
 
-  async function getToken() {
-    return await SecureStore.getItemAsync("token");
-  }
+ 
+ 
 
   const schema = yup.object().shape({
     email: yup
@@ -70,7 +73,7 @@ const Login = () => {
     try {
       await login(value);
     } catch (error) {
-      console.log('login',error);
+      console.log("login", error);
     } finally {
       setLoading(false);
     }
@@ -82,17 +85,16 @@ const Login = () => {
     if (response) {
       helperServices.checkApiResponse(response, () => {
         saveToken(response.data.token);
+        dispatch(setToken(response.data.token));
         Toast.show({
           type: "success",
           text1: "Başarılı",
           text2: "Giriş yapılıyor",
         });
-        router.replace("/");
+         router.replace("/");
       });
     }
   };
-
-
 
   return (
     <KeyboardAvoidingView

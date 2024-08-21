@@ -1,6 +1,6 @@
 import { Text, TextInput, View, StyleSheet, InputModeOptions } from "react-native";
 import React from "react";
-import { ThemedView } from "../ThemedView";
+import { ThemedView } from "./ThemedView";
 
 
 interface Props{
