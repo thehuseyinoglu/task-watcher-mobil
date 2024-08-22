@@ -25,7 +25,7 @@ import { authService } from "@/services/auth/authService";
 import { helperServices } from "@/utils/helper-service";
 import * as SecureStore from "expo-secure-store";
 import { useDispatch } from "react-redux";
-import { setToken } from "@/store/auth/authSlice";
+import { setToken,setUser } from "@/store/auth/authSlice";
 
 interface FormValues {
   email: string;
@@ -86,6 +86,9 @@ const Login = () => {
       helperServices.checkApiResponse(response, () => {
         saveToken(response.data.token);
         dispatch(setToken(response.data.token));
+
+      
+        dispatch(setUser(response.data.user))
         Toast.show({
           type: "success",
           text1: "Başarılı",

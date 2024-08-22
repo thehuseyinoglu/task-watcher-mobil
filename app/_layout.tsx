@@ -24,11 +24,8 @@ const InitialLayout = () => {
   const segments = useSegments();
   const router = useRouter();
 
-  async function getToken() {
-    return  SecureStore.getItem("token");
-  }
 
-  const isSignedIn =   SecureStore.getItem("token") ? true: false;
+  const isSignedIn = SecureStore.getItem("token") ? true: false;
 
   useEffect(() => {
     const inTabsGroup = segments[0] === "(tabs)";

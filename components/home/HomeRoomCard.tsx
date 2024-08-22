@@ -1,13 +1,18 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const HomeRoomCard = () => {
+interface Props{
+  room:any
+}
+
+const HomeRoomCard = ({room}:Props) => {
+
   return (
     <View style={styles.container}>
-      <View style={styles.beforeElement}>
+      <View style={[styles.beforeElement,{ backgroundColor: `${room?.color ? room.color:"#B153EA" }`,}]}>
         <View>
-          <Text style={styles.taskRoom}>Room Adı</Text>
-          <Text style={styles.roomAdmin}>Kişi Sayısı</Text>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.taskRoom}>{room.name}</Text>
+          <Text style={styles.roomAdmin}>Kişi sayısı {room.users.length}</Text>
         </View>
         <View
           style={{
@@ -51,8 +56,7 @@ const HomeRoomCard = () => {
             ></View>
           </View>
           <View style={{ flexDirection: "row"}}>
-            <Text style={{ color:"#95E6AC" }}> 24 /</Text>
-            <Text style={{ color:"#E0E695" }}> 45</Text>
+            <Text style={{ color:"#E0E695",fontWeight:"500" }}>Task: {room.tasks.length}</Text>
           </View>
         </View>
       </View>
@@ -60,6 +64,8 @@ const HomeRoomCard = () => {
     </View>
   );
 };
+
+
 
 export default HomeRoomCard;
 
@@ -76,7 +82,7 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     zIndex: 99,
-    backgroundColor: "#B153EA",
+   
     borderRadius: 20,
     padding: 25,
     gap: 23,

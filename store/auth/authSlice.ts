@@ -1,27 +1,41 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { userService } from "@/services/users/userService";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
-export interface CounterState {
-  token: string
+export interface AuthState {
+  token: string;
+  user: any;
 }
 
-const initialState: CounterState = {
-  token: '',
-}
+const initialState: AuthState = {
+  token: "",
+  user: {},
+};
+
+export const getUserProfile = createAsyncThunk("getUserProfile", async () => {
+  const response = await userService.getUserProfile();
+
+  return response.data;
+});
+
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-   
-    // decrement: (state) => {
-    //   state.value -= 1
-    // },
     setToken: (state, action: PayloadAction<string>) => {
-      state.token = action.payload
+      state.token = action.payload;
+    },
+    setUser: (state, action: any) => {
+      state.user = action.payload;
     },
   },
-})
-export const { setToken } = authSlice.actions
+  extraReducers: (builder) => {
+    builder.addCase(getUserProfile.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
+  },
+});
+export const { setToken, setUser } = authSlice.actions;
 
-export default authSlice.reducer
+export default authSlice.reducer;

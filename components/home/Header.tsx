@@ -1,11 +1,13 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { ThemedView } from "../shared/ThemedView";
-
-import { Colors } from "@/constants/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRouter } from "expo-router";
 
 const Header = () => {
+  const router = useRouter();
+
+  
+
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
@@ -14,8 +16,9 @@ const Header = () => {
           source={require("../../assets/images/logo.png")}
         />
       </View>
-
-      <Ionicons name="notifications-outline" size={32} color="#945DDD" />
+      <TouchableOpacity onPress={()=>console.log("object")}>
+        <Ionicons name="notifications-outline" size={32} color="#945DDD" />
+      </TouchableOpacity>
     </View>
   );
 };
