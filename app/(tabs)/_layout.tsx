@@ -4,7 +4,13 @@ import React from "react";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { Pressable, Text, TouchableOpacity, View, ViewBase } from "react-native";
+import {
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewBase,
+} from "react-native";
 import Header from "@/components/home/Header";
 
 export default function TabLayout() {
@@ -45,50 +51,49 @@ export default function TabLayout() {
   );
 
   return (
-   <>
-   <Header/>
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
-        tabBarStyle: {
-      
-          backgroundColor: "#fff",
-          height: 70,
-        },
-      }}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Anasayfa",
-          tabBarLabelStyle: {
-            marginBottom: 10, 
+    <>
+      <Header />
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: "#fff",
+            height: 70,
           },
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "home" : "home-outline"}
-              color={color}
-            />
-          ),
         }}
-      />
-      <Tabs.Screen
-        name="myTask"
-        options={{
-          title: "Tasklarım",
-          tabBarLabelStyle: {
-            marginBottom: 10, 
-          },
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "file-tray-full" : "file-tray-full-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: "Anasayfa",
+            tabBarLabelStyle: {
+              marginBottom: 10,
+            },
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                name={focused ? "home" : "home-outline"}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="myTask"
+          options={{
+            title: "Tasklarım",
+            tabBarLabelStyle: {
+              marginBottom: 10,
+            },
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                name={focused ? "file-tray-full" : "file-tray-full-outline"}
+                color={color}
+              />
+            ),
+          }}
+        />
+        {/* <Tabs.Screen
         name="createRoom"
         options={{
           title: "",
@@ -101,38 +106,38 @@ export default function TabLayout() {
           ),
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
         }}
-      />
+      /> */}
         <Tabs.Screen
-        name="myRoom"
-        options={{
-          title: "Odalar",
-          tabBarLabelStyle: {
-            marginBottom: 10, 
-          },
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "bookmark" : "bookmark-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
-       <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Anasayfa",
-          tabBarLabelStyle: {
-            marginBottom: 10, 
-          },
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "person" : "person-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
-    </Tabs>
-   </>
+          name="myRoom"
+          options={{
+            title: "Odalar",
+            tabBarLabelStyle: {
+              marginBottom: 10,
+            },
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                name={focused ? "bookmark" : "bookmark-outline"}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: "Anasayfa",
+            tabBarLabelStyle: {
+              marginBottom: 10,
+            },
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                name={focused ? "person" : "person-outline"}
+                color={color}
+              />
+            ),
+          }}
+        />
+      </Tabs>
+    </>
   );
 }

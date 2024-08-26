@@ -16,6 +16,8 @@ import { store } from "../store/store";
 import { Provider } from "react-redux";
 import * as SecureStore from "expo-secure-store";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -24,8 +26,7 @@ const InitialLayout = () => {
   const segments = useSegments();
   const router = useRouter();
 
-
-  const isSignedIn = SecureStore.getItem("token") ? true: false;
+  const isSignedIn = SecureStore.getItem("token") ? true : false;
 
   useEffect(() => {
     const inTabsGroup = segments[0] === "(tabs)";
@@ -111,13 +112,22 @@ export default function RootLayout() {
   };
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+
+
+   
     <Provider store={store}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <InitialLayout />
-          <Toast config={toastConfig} />
-        </SafeAreaView>
-      </ThemeProvider>
+      <BottomSheetModalProvider>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <SafeAreaView style={{ flex: 1 }}>
+            <InitialLayout />
+            <Toast config={toastConfig} />
+          </SafeAreaView>
+        </ThemeProvider>
+      </BottomSheetModalProvider>
     </Provider>
+    </GestureHandlerRootView>
   );
 }
