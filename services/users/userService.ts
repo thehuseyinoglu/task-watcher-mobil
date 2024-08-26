@@ -11,10 +11,27 @@ const getUserProfile = async () => {
   const response = await axios.get(api + "/users/profile", {
     headers: { Authorization: `Bearer ${token}` },
   });
+  return response.data;
+};
+
+const editUserProfile = async (arg: {
+  name: string;
+  email: string;
+  oldPassword: string;
+  newPassword: string;
+}) => {
+  const response = await axios.put(
+    api + "/users",
+     arg ,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
 
   return response.data;
 };
 
 export const userService = {
   getUserProfile,
+  editUserProfile,
 };

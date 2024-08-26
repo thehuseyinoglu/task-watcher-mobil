@@ -1,16 +1,31 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import {
+  Button,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import * as SecureStore from "expo-secure-store";
 import { useRouter } from "expo-router";
 import { setUser } from "@/store/auth/authSlice";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import CustomBottomSheetModal from "@/components/shared/CustomBottomSheetModal";
+import EditProfileForm from "@/components/profile/EditProfileForm";
 
 const Profile = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const handlePresentModalPress = () => {
+    bottomSheetRef.current?.present();
+  };
 
   const deleteItem = async (key: string) => {
     try {
@@ -27,6 +42,7 @@ const Profile = () => {
     dispatch(setUser({} as any));
   };
 
+
   return (
     <View style={styles.container}>
       <View style={styles.photo}>
@@ -36,9 +52,8 @@ const Profile = () => {
         />
       </View>
       <View style={{ justifyContent: "center", gap: 4 }}>
-        <Text style={styles.textBold}>{user.name.toUpperCase()}</Text>
+        <Text style={styles.textBold}>{user.name?.toUpperCase()}</Text>
         <Text style={styles.textLight}>{user.email}</Text>
-        <Text></Text>
       </View>
 
       <View
@@ -68,7 +83,7 @@ const Profile = () => {
       >
         <TouchableOpacity
           disabled={false}
-          onPress={() => console.log("object")}
+          onPress={handlePresentModalPress}
           style={[styles.button, { borderColor: "#49B2FE" }]}
         >
           <FontAwesome6 name="edit" size={24} color="#49B2FE" />
@@ -81,6 +96,14 @@ const Profile = () => {
           <FontAwesome6 name="power-off" size={24} color="#FE4C49" />
         </TouchableOpacity>
       </View>
+
+      <CustomBottomSheetModal
+        snapPoints={["60%", "80%"]}
+        title={"Profili Düzenle"}
+        ref={bottomSheetRef}
+      >
+        <EditProfileForm />
+      </CustomBottomSheetModal>
     </View>
   );
 };
