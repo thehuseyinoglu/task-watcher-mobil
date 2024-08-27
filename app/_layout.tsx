@@ -4,7 +4,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Slot, useRouter, useSegments } from "expo-router";
+import { Slot, Stack, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -38,7 +38,13 @@ const InitialLayout = () => {
     }
   }, [isSignedIn]);
 
-  return <Slot />;
+  return (
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      <Stack.Screen name="details/[id]" options={{ headerTintColor: "#602C9D" }} />
+    </Stack>
+  );
 };
 
 export default function RootLayout() {
@@ -113,21 +119,18 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-
-
-   
-    <Provider store={store}>
-      <BottomSheetModalProvider>
-        <ThemeProvider
-          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-        >
-          <SafeAreaView style={{ flex: 1 }}>
-            <InitialLayout />
-            <Toast config={toastConfig} />
-          </SafeAreaView>
-        </ThemeProvider>
-      </BottomSheetModalProvider>
-    </Provider>
+      <Provider store={store}>
+        <BottomSheetModalProvider>
+          <ThemeProvider
+            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+          >
+            <SafeAreaView style={{ flex: 1 }}>
+              <InitialLayout />
+              <Toast config={toastConfig} />
+            </SafeAreaView>
+          </ThemeProvider>
+        </BottomSheetModalProvider>
+      </Provider>
     </GestureHandlerRootView>
   );
 }

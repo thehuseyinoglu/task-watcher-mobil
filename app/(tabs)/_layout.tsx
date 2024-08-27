@@ -4,34 +4,27 @@ import React from "react";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import {
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewBase,
-} from "react-native";
+import { Pressable, View } from "react-native";
 import Header from "@/components/home/Header";
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const CustomTabBarButton = ({
-    children,
-    onPress,
-    accessibilityState,
-  }: any) => (
+  const CustomTabBarButton = ({ children, onPress }: any) => (
     <Pressable
       style={{
-        top: -30,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "transparent",
-        width: 80,
-        height: 80,
+        width: 60,
+        height: 60,
         borderRadius: 99,
         borderRightWidth: 0.5,
         borderLeftWidth: 0.5,
         borderColor: "grey",
+        position: "absolute",
+        bottom: 80,
+        right: 10,
       }}
       onPress={onPress}
     >
@@ -39,8 +32,8 @@ export default function TabLayout() {
         style={{
           justifyContent: "center",
           alignItems: "center",
-          width: 70,
-          height: 70,
+          width: 60,
+          height: 60,
           borderRadius: 35,
           backgroundColor: "#945DDD",
         }}
@@ -53,6 +46,7 @@ export default function TabLayout() {
   return (
     <>
       <Header />
+
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
@@ -125,7 +119,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="profile"
           options={{
-            title: "Anasayfa",
+            title: "Profile",
             tabBarLabelStyle: {
               marginBottom: 10,
             },
@@ -138,6 +132,7 @@ export default function TabLayout() {
           }}
         />
       </Tabs>
+     
     </>
   );
 }

@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import * as SecureStore from "expo-secure-store";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { setUser } from "@/store/auth/authSlice";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBottomSheetModal from "@/components/shared/CustomBottomSheetModal";
@@ -42,14 +42,13 @@ const Profile = () => {
     dispatch(setUser({} as any));
   };
 
-
   return (
     <View style={styles.container}>
       <View style={styles.photo}>
-        <Image
+        {/* <Image
           style={{ width: 150 }}
           source={require("../../assets/images/logo.png")}
-        />
+        /> */}
       </View>
       <View style={{ justifyContent: "center", gap: 4 }}>
         <Text style={styles.textBold}>{user.name?.toUpperCase()}</Text>
@@ -88,6 +87,7 @@ const Profile = () => {
         >
           <FontAwesome6 name="edit" size={24} color="#49B2FE" />
         </TouchableOpacity>
+        <Link href="/details/2">bas</Link>
         <TouchableOpacity
           disabled={false}
           onPress={logout}

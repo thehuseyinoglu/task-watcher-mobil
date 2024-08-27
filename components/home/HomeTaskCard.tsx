@@ -22,6 +22,7 @@ const HomeTaskCard = ({ task }: Props) => {
         </View>
         <View>
           <Text style={styles.taskDate}>{dayjs(task.createdAt).format("MMM D")}</Text>
+          
         </View>
       </View>
     </View>

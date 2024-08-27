@@ -4,6 +4,7 @@ import {
   Text,
   View,
   RefreshControl,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 
@@ -18,27 +19,50 @@ import { getUserProfile, setUser } from "@/store/auth/authSlice";
 const HomeScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
 
-  const dispatch:any = useDispatch();
+  const dispatch: any = useDispatch();
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    dispatch(getUserProfile())
+    dispatch(getUserProfile());
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
   }, []);
 
-  
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, []);
 
-   useEffect(() => {
- 
-
-dispatch(getUserProfile())
-
-
-   }, []);
-
-
+  const CustomTabBarButton = ({ children, onPress }: any) => (
+    <Pressable
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "transparent",
+        width: 50,
+        height: 50,
+        borderRadius: 99,
+        borderRightWidth: 0.5,
+        borderLeftWidth: 0.5,
+        borderColor: "grey",
+        position: "absolute",
+      }}
+      onPress={onPress}
+    >
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          width: 50,
+          height: 50,
+          borderRadius: 35,
+          backgroundColor: "#945DDD",
+        }}
+      >
+        {children}
+      </View>
+    </Pressable>
+  );
 
   return (
     <ScrollView
