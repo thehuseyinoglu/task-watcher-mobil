@@ -1,47 +1,19 @@
-import { Tabs } from "expo-router";
+import { Tabs, useSegments } from "expo-router";
 import React from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { Pressable, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import Header from "@/components/home/Header";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import AntDesign from "@expo/vector-icons/AntDesign";
+import AddButton from "@/components/home/AddButton";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const CustomTabBarButton = ({ children, onPress }: any) => (
-    <Pressable
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "transparent",
-        width: 60,
-        height: 60,
-        borderRadius: 99,
-        borderRightWidth: 0.5,
-        borderLeftWidth: 0.5,
-        borderColor: "grey",
-        position: "absolute",
-        bottom: 80,
-        right: 10,
-      }}
-      onPress={onPress}
-    >
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          width: 60,
-          height: 60,
-          borderRadius: 35,
-          backgroundColor: "#945DDD",
-        }}
-      >
-        {children}
-      </View>
-    </Pressable>
-  );
+  const segments = useSegments();
+
+  console.log(segments);
 
   return (
     <>
@@ -119,7 +91,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="profile"
           options={{
-            title: "Profile",
+            title: "Profil",
             tabBarLabelStyle: {
               marginBottom: 10,
             },
@@ -132,7 +104,8 @@ export default function TabLayout() {
           }}
         />
       </Tabs>
-     
+
+      {segments.length == 1 && <AddButton />}
     </>
   );
 }

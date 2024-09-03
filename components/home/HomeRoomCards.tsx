@@ -1,6 +1,6 @@
 import {
   FlatList,
-  ScrollView,
+
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -10,6 +10,8 @@ import React from "react";
 import HomeRoomCard from "./HomeRoomCard";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
 
 const HomeRoomCards = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -25,9 +27,9 @@ const HomeRoomCards = () => {
     <>
       <View style={styles.header}>
         <Text>Oda Listesi</Text>
-        {/* <TouchableOpacity onPress={() => console.log("object")}>
-          <Text style={{ color: "#622EA0" }}>Tüm Odalar</Text>
-        </TouchableOpacity> */}
+         <TouchableOpacity onPress={() => console.log("object")}>
+         <MaterialIcons name="keyboard-double-arrow-right" size={20} color="black" />
+        </TouchableOpacity> 
       </View>
  
       <FlatList

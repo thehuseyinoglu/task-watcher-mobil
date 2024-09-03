@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     top: 10,
     right: -10,
     zIndex: 98,
-    backgroundColor: "#D08EEF",
+    backgroundColor: "#2e3234",
     borderRadius: 20,
   },
   taskRoom: {

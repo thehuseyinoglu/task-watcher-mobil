@@ -20,18 +20,32 @@ const editUserProfile = async (arg: {
   oldPassword: string;
   newPassword: string;
 }) => {
-  const response = await axios.put(
-    api + "/users",
-     arg ,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+  const response = await axios.put(api + "/users", arg, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
+  return response.data;
+};
+
+const getUserTasks = async () => {
+  const response = await axios.get(api + "/users/tasks", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  
+  return response.data;
+};
+
+const getUserRooms = async () => {
+  const response = await axios.get(api + "/users/rooms", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  
   return response.data;
 };
 
 export const userService = {
   getUserProfile,
   editUserProfile,
+  getUserTasks,
+  getUserRooms
 };

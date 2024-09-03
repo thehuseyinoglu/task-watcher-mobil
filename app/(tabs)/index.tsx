@@ -11,13 +11,14 @@ import React, { useEffect, useState } from "react";
 import HomeHelloCard from "@/components/home/HomeHelloCard";
 import HomeTaskCards from "@/components/home/HomeTaskCards";
 import HomeRoomCards from "@/components/home/HomeRoomCards";
-import { userService } from "@/services/users/userService";
 import { useDispatch } from "react-redux";
-import { helperServices } from "@/utils/helper-service";
-import { getUserProfile, setUser } from "@/store/auth/authSlice";
+import { getUserProfile } from "@/store/auth/authSlice";
+
 
 const HomeScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
+
+
 
   const dispatch: any = useDispatch();
 

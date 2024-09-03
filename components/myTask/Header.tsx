@@ -10,7 +10,7 @@ type Props = {
 const Header = ({ listType, setListType }: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.headerTitle}>Tasklarım</Text>
+      {/* <Text style={styles.headerTitle}>Tasklarım</Text> */}
       {/* <View style={styles.iconContainer}>
         <Pressable style={styles.button} onPress={() => setListType(false)}>
           <Feather

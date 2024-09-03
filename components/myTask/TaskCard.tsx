@@ -10,28 +10,39 @@ type Props = {
   task: any;
 };
 
-
-
 const TaskCard = ({ task }: Props) => {
-
-
   return (
     <View style={styles.container}>
+      <View
+        style={[styles.leftBorder, { backgroundColor: `${task.room?.color}` }]}
+      ></View>
       <View style={styles.header}>
-        <CustomChip title={task.room?.name} />
-        <Feather name="chevron-right" size={24} color="black" />
+        <CustomChip color={task.room?.color} title={task.room?.name} />
+        <Feather name="chevron-right" size={24} color="#48494D" />
       </View>
-      <View style={styles.content}>
-        <Text style={{fontSize:20 , fontWeight:"500",color:"#622EA0"}} numberOfLines={2} ellipsizeMode="tail">
+      <View >
+        <Text
+          style={{ fontSize: 20, fontWeight: "500", color: "#48494D" }}
+          numberOfLines={2}
+          ellipsizeMode="tail"
+        >
           {task.name}
         </Text>
-        <Text style={{fontSize:14 , fontWeight:"400", color:"#B48DE2"}} numberOfLines={3} ellipsizeMode="tail">
+        <Text
+          style={{ fontSize: 14, fontWeight: "400", color: "#48494D" }}
+          numberOfLines={3}
+          ellipsizeMode="tail"
+        >
           {task.description}
         </Text>
       </View>
-      <Text style={{fontSize:14 , fontWeight:"400", color:"#622EA0"}} numberOfLines={3} ellipsizeMode="tail">
-           {dayjs(task?.updatedAt).format("MMM D")}
-        </Text>
+      <Text
+        style={{ fontSize: 14, fontWeight: "400", color: "#48494D", }}
+        numberOfLines={3}
+        ellipsizeMode="tail"
+      >
+        {dayjs(task?.updatedAt).format("MMM D")}
+      </Text>
     </View>
   );
 };
@@ -40,17 +51,33 @@ export default TaskCard;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#F0F4F8",
+    backgroundColor: "#fff",
     gap: 15,
-    padding:20,
-    borderRadius:10,
-    borderWidth:1,
-    borderColor:"#FEFEFE"
-
+    padding: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#fbfbfb",
+    position: "relative",
+    overflow: "hidden",
+    shadowColor: "#5A5C60",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 9,
+    elevation: 10,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  content: {},
+
+  leftBorder: {
+    height: "150%",
+    width: 10,
+    position: "absolute",
+    left: 0,
+    zIndex: 99,
+  },
 });

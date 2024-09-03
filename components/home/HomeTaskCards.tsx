@@ -3,6 +3,8 @@ import React from "react";
 import HomeTaskCard from "./HomeTaskCard";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
 
 const HomeTaskCards = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -12,7 +14,7 @@ const HomeTaskCards = () => {
       <View style={styles.header}>
         <Text>Oda Listesi</Text>
         <TouchableOpacity onPress={() => console.log("object")}>
-          <Text style={{ color: "#622EA0" }}>Tüm Tasklarım</Text>
+        <MaterialIcons name="keyboard-double-arrow-right" size={20} color="black" />
         </TouchableOpacity>
       </View>
       <View style={styles.listContainer}>
@@ -41,6 +43,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 10,
   },
 });

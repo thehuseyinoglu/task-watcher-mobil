@@ -116,6 +116,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 30,
+    position: "relative",
+    width: "100%",
   },
   photo: {
     width: 150,
@@ -126,6 +128,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fff",
   },
   textBold: {
     fontSize: 20,
