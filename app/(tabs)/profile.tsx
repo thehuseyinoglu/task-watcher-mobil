@@ -1,25 +1,28 @@
 import {
   Button,
   Image,
+  RefreshControl,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import * as SecureStore from "expo-secure-store";
 import { Link, useRouter } from "expo-router";
-import { setUser } from "@/store/auth/authSlice";
+import { getUserProfile, setUser } from "@/store/auth/authSlice";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBottomSheetModal from "@/components/shared/CustomBottomSheetModal";
 import EditProfileForm from "@/components/profile/EditProfileForm";
+import UploadImage from "@/components/profile/UploadImage";
 
 const Profile = () => {
   const user = useSelector((state: RootState) => state.auth.user);
-  const dispatch = useDispatch();
+  const dispatch:any = useDispatch();
   const router = useRouter();
 
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -42,14 +45,23 @@ const Profile = () => {
     dispatch(setUser({} as any));
   };
 
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    dispatch(getUserProfile());
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
+ 
   return (
-    <View style={styles.container}>
-      <View style={styles.photo}>
-        {/* <Image
-          style={{ width: 150 }}
-          source={require("../../assets/images/logo.png")}
-        /> */}
-      </View>
+    <ScrollView  refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    } contentContainerStyle={styles.container}>
+      <UploadImage />
+
       <View style={{ justifyContent: "center", gap: 4 }}>
         <Text style={styles.textBold}>{user.name?.toUpperCase()}</Text>
         <Text style={styles.textLight}>{user.email}</Text>
@@ -104,7 +116,7 @@ const Profile = () => {
       >
         <EditProfileForm />
       </CustomBottomSheetModal>
-    </View>
+    </ScrollView>
   );
 };
 

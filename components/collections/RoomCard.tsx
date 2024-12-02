@@ -37,6 +37,7 @@ const RoomCard = ({ room, index }: Props) => {
           <AntDesign name="arrowright" size={16} color="white" />
         </View>
       </View>
+    
     </View>
   );
 };
@@ -49,8 +50,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 25,
     justifyContent: "space-between",
-   borderWidth:1, 
-   borderColor:"#f1f1f1"
+    borderWidth: 1,
+    borderColor: "#f1f1f1",
+
+    
   },
   box1: {
     width: "55%",
@@ -79,4 +82,5 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "white",
   },
+ 
 });

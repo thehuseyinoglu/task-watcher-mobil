@@ -1,40 +1,52 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { CollectionsEnum } from "@/types/enums";
 
-const Filter = () => {
+type Props = {
+  setChoseTab: (value: string) => void;
+};
+
+const Header = ({setChoseTab}:Props) => {
   return (
     <View style={styles.container}>
-      <View
+      <Pressable
+      onPress={()=>{
+        setChoseTab(CollectionsEnum.tasks)
+      }}
         style={[
           styles.button,
           { borderTopLeftRadius: 10, borderBottomLeftRadius: 10 },
         ]}
       >
         <AntDesign name="filter" size={24} color="#48494D" />
-        <Text>Filtrele</Text>
-      </View>
-      <View
+        <Text>Tasklarım</Text>
+      </Pressable>
+      <Pressable
+      onPress={()=>{
+        setChoseTab(CollectionsEnum.rooms)
+      }}
+      
         style={[
           styles.button,
           { borderTopRightRadius: 10, borderBottomRightRadius: 10 },
         ]}
       >
-      <MaterialIcons name="sort" size={24} color="#48494D" />
-        <Text>Sırala</Text>
-      </View>
+        <MaterialIcons name="sort" size={24} color="#48494D" />
+        <Text>Odalarım</Text>
+      </Pressable>
     </View>
   );
 };
 
-export default Filter;
+export default Header;
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor:"#fff"
+    backgroundColor: "#fff",
   },
   button: {
     flexDirection: "row",
@@ -45,6 +57,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#F0F4F8",
-    gap:5
+    gap: 5,
   },
 });

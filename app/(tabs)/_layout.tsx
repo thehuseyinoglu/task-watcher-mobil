@@ -59,6 +59,21 @@ export default function TabLayout() {
             ),
           }}
         />
+        <Tabs.Screen
+          name="collections"
+          options={{
+            title: "Koleksiyon",
+            tabBarLabelStyle: {
+              marginBottom: 10,
+            },
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                name={focused ? "file-tray-full" : "file-tray-full-outline"}
+                color={color}
+              />
+            ),
+          }}
+        />
         {/* <Tabs.Screen
         name="createRoom"
         options={{

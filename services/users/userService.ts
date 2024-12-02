@@ -5,7 +5,7 @@ import * as SecureStore from "expo-secure-store";
 
 const token = SecureStore.getItem("token");
 
-const api = "http://192.168.1.125:3000";
+const api = "http://192.168.1.36:3000";
 
 const getUserProfile = async () => {
   const response = await axios.get(api + "/users/profile", {
@@ -31,7 +31,7 @@ const getUserTasks = async () => {
   const response = await axios.get(api + "/users/tasks", {
     headers: { Authorization: `Bearer ${token}` },
   });
-  
+
   return response.data;
 };
 
@@ -39,7 +39,15 @@ const getUserRooms = async () => {
   const response = await axios.get(api + "/users/rooms", {
     headers: { Authorization: `Bearer ${token}` },
   });
-  
+
+  return response.data;
+};
+
+const editProfilPhoto = async (arg: { image: string }) => {
+  const response = await axios.put(api + "/users/profile-photo", arg, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
   return response.data;
 };
 
@@ -47,5 +55,6 @@ export const userService = {
   getUserProfile,
   editUserProfile,
   getUserTasks,
-  getUserRooms
+  getUserRooms,
+  editProfilPhoto,
 };

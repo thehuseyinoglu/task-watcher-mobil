@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { userService } from "@/services/users/userService";
 import { helperServices } from "@/utils/helper-service";
-import Roomcards from "@/components/myRoom/Roomcards";
+import Roomcards from "@/components/collections/Roomcards";
 import Filter from "@/components/myRoom/Filter";
 import Loading from "@/components/shared/Loading";
 

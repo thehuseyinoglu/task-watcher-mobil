@@ -1,7 +1,7 @@
 import { baseUrl } from "@/configs/baseUrl";
 import axios from "axios";
 
-const api = "http://192.168.1.125:3000";
+const api = "http://192.168.1.36:3000";
 
 const login = async (arg: { email: string; password: string }) => {
 

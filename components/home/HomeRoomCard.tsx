@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     zIndex: 99,
-   
     borderRadius: 20,
     padding: 25,
     gap: 23,
